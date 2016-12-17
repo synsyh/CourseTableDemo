@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
      **/
     protected int aveWidth;
 
-    private List<Map<String, Object>> alldata = new ArrayList<Map<String, Object>>();
+    private List<Map<String, String>> alldata = new ArrayList<Map<String, String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,45 +149,47 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.course_info_yellow};
 
         // 添加课程信息
-        TextView courseInfo = new TextView(this);
-        courseInfo.setText("软件工程\n@2402");
-        //该textview的高度根据其节数的跨度来设置
-        RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
-                aveWidth * 31 / 32,
-                (gridHeight - 5) * 2);
-        //textview的位置由课程开始节数和上课的时间（day of week）确定
-        rlp.topMargin = 5 + (1 - 1) * gridHeight;
-        rlp.leftMargin = 1;
-        // 偏移由这节课是星期几决定
-        rlp.addRule(RelativeLayout.RIGHT_OF, 2);
-        //字体剧中
-        courseInfo.setGravity(Gravity.CENTER);
-        // 设置一种背景
-        courseInfo.setBackgroundResource(background[1]);
-        courseInfo.setTextSize(12);
-        courseInfo.setLayoutParams(rlp);
-        courseInfo.setTextColor(Color.WHITE);
-        //设置不透明度
-        courseInfo.getBackground().setAlpha(222);
-        course_table_layout.addView(courseInfo);
-
-        for (Map<String, Object> tmp : alldata) {
+//        TextView courseInfo = new TextView(this);
+//        courseInfo.setText("软件工程\n@2402");
+//        //该textview的高度根据其节数的跨度来设置
+//        RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
+//                aveWidth * 31 / 32,
+//                (gridHeight - 5) * 2);
+//        //textview的位置由课程开始节数和上课的时间（day of week）确定
+//        rlp.topMargin = 5 + (1 - 1) * gridHeight;
+//        rlp.leftMargin = 1;
+//        // 偏移由这节课是星期几决定
+//        rlp.addRule(RelativeLayout.RIGHT_OF, 2);
+//        //字体剧中
+//        courseInfo.setGravity(Gravity.CENTER);
+//        // 设置一种背景
+//        courseInfo.setBackgroundResource(background[1]);
+//        courseInfo.setTextSize(12);
+//        courseInfo.setLayoutParams(rlp);
+//        courseInfo.setTextColor(Color.WHITE);
+//        //设置不透明度
+//        courseInfo.getBackground().setAlpha(222);
+//        course_table_layout.addView(courseInfo);
+        TextView courseInfo;
+        RelativeLayout.LayoutParams rlp;
+        int i=0;
+        for (Map<String, String> tmp : alldata) {
+            i=(i+1)%5;
             courseInfo = new TextView(this);
-
-            courseInfo.setText(tmp.get("TeachClassName").toString()+'\n'+tmp.get("Address").toString());
+            courseInfo.setText(tmp.get("TeachClassName") + '\n' + tmp.get("Address"));
             //该textview的高度根据其节数的跨度来设置
             rlp = new RelativeLayout.LayoutParams(
                     aveWidth * 31 / 32,
-                    (gridHeight - 5) * 3);
+                    (gridHeight - 5) * Integer.valueOf(tmp.get("clsNum")));
             //textview的位置由课程开始节数和上课的时间（day of week）确定
-            rlp.topMargin = 5 + ( - 1) * gridHeight;
+            rlp.topMargin = 5 + (Integer.valueOf(tmp.get("class"))-1) * gridHeight;
             rlp.leftMargin = 1;
             // 偏移由这节课是星期几决定
-            rlp.addRule(RelativeLayout.RIGHT_OF, 3);
+            rlp.addRule(RelativeLayout.RIGHT_OF, Integer.valueOf(tmp.get("day")));
             //字体剧中
             courseInfo.setGravity(Gravity.CENTER);
             // 设置一种背景
-            courseInfo.setBackgroundResource(background[2]);
+            courseInfo.setBackgroundResource(background[i]);
             courseInfo.setTextSize(12);
             courseInfo.setLayoutParams(rlp);
             courseInfo.setTextColor(Color.WHITE);
